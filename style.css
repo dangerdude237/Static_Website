@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+section {
+    padding: 1rem 20px;
+}
+
+section#projects ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+section#projects li {
+    background: #f4f4f4;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+section#contact p {
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+}
