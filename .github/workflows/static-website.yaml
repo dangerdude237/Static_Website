@@ -3,27 +3,17 @@ name: Deploy to Google Cloud Platform
 on:
   push:
     branches:
-      - main  # This triggers the workflow on pushes to the 'main' branch
+      - main 
 
-permissions:  # Permissions for the GitHub token
-  contents: read  # Needed to checkout the code
-  id-token: write  # Needed to authenticate to Google Cloud using Workload Identity Federation
+permissions:  
+  contents: read 
+  id-token: write  
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Specifies the runner environment
     steps:
-    - name: Checkout Code  # Checks out the repository code to the GitHub Actions runner
+    - name: Checkout Code  
       uses: actions/checkout@v2
-      
-    # Uncomment and adapt the following steps if you use a static site generator like Hugo
-    # - name: Setup Hugo
-    #   uses: peaceiris/actions-hugo@v2
-    #   with:
-    #     hugo-version: 'latest'
-    # - name: Build Site
-    #   run: hugo --minify
-    #   # Make sure to adjust the 'run' command according to your build process
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
@@ -31,6 +21,6 @@ jobs:
         workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github/providers/static-website-pool'
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
-    - name: Deploy to Google Cloud Storage  # Syncs the files to the specified GCS bucket
+    - name: Deploy to Google Cloud Storage  
       run: gsutil rsync -r ${{github.workspace}} gs://static_website_storage
-      # Ensure 'gs://static_website_storage' matches your GCS bucket name
+
