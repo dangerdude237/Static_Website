@@ -23,5 +23,5 @@ jobs:
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
     - name: Deploy to Google Cloud Storage  
-      run: gsutil rsync -r ${{github.workspace}} gs://static_website_storage
+      run: gsutil rsync -r ${{github.workspace}} https://storage.googleapis.com/static_website_storage
 
