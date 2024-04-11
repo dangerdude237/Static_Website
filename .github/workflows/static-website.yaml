@@ -1,8 +1,33 @@
-projects/359910979371/locations/global/workloadIdentityPools/static-website-pool/providers/static-website-provider
+name: Deploy to Google Cloud Platform
 
-steps:
-- name: 'Authenticate to Google Cloud'
-  uses: 'google-github-actions/auth@v0.4.0'
-  with:
-    workload_identity_provider: 'projects/cloudcomputing-411615/locations/global/workloadIdentityPools/static-website-pool/providers/static-website-provider'
-    service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
+on:
+  push:
+    branches:
+      - main  # Or whichever branch you want to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      
+    # Add steps for building your static website here
+    # For example, if you're using a static site generator like Hugo:
+    # - name: Setup Hugo
+    #   uses: peaceiris/actions-hugo@v2
+    #   with:
+    #     hugo-version: 'latest'
+    # - name: Build Site
+    #   run: hugo --minify
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0.4.0
+      with:
+        workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/static-website-pool/providers/static-website-provider'
+        service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
+
+    - name: Deploy to Google Cloud Storage
+      run: gsutil rsync -r ${{ github.workspace }} gs://static_website_storage
+      # Replace './public' with the path to your build directory if different
+      # Replace 'YOUR_BUCKET_NAME_HERE' with your actual Cloud Storage bucket name
