@@ -32,5 +32,5 @@ jobs:
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
     - name: Deploy to Google Cloud Storage  # Syncs the files to the specified GCS bucket
-      run: gsutil rsync -r ${{ github.workspace }} gs://static_website_storage
+      run: gsutil rsync -r ${{github.workspace}} gs://static_website_storage
       # Ensure 'gs://static_website_storage' matches your GCS bucket name
