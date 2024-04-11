@@ -16,6 +16,11 @@ jobs:
     - name: Checkout Code  # Checks out the repository code to the GitHub Actions runner
       uses: actions/checkout@v2
       
+    - name: Inspect OIDC token
+      env:
+        ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+      run: | 
+        echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN | base64 --decode | jq .
     # Uncomment and adapt the following steps if you use a static site generator like Hugo
     # - name: Setup Hugo
     #   uses: peaceiris/actions-hugo@v2
