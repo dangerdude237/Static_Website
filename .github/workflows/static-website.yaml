@@ -24,7 +24,7 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/static-website-pool/providers/static-website-provider'
+        workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github/providers/static-website-pool'
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
     - name: Deploy to Google Cloud Storage
