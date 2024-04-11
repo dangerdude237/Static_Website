@@ -3,34 +3,34 @@ name: Deploy to Google Cloud Platform
 on:
   push:
     branches:
-      - main  # Or whichever branch you want to deploy from
+      - main  # This triggers the workflow on pushes to the 'main' branch
+
+permissions:  # Permissions for the GitHub token
+  contents: read  # Needed to checkout the code
+  id-token: write  # Needed to authenticate to Google Cloud using Workload Identity Federation
 
 jobs:
   deploy:
-  permissions:
-     contents: 'read'
-     id-token: 'write'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Specifies the runner environment
     steps:
-    - name: Checkout Code
+    - name: Checkout Code  # Checks out the repository code to the GitHub Actions runner
       uses: actions/checkout@v2
       
-    # Add steps for building your static website here
-    # For example, if you're using a static site generator like Hugo:
+    # Uncomment and adapt the following steps if you use a static site generator like Hugo
     # - name: Setup Hugo
     #   uses: peaceiris/actions-hugo@v2
     #   with:
     #     hugo-version: 'latest'
     # - name: Build Site
     #   run: hugo --minify
+    #   # Make sure to adjust the 'run' command according to your build process
 
-    - name: Authenticate to Google Cloud
+    - name: Authenticate to Google Cloud  # Authenticates to Google Cloud with Workload Identity Federation
       uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github/providers/static-website-pool'
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
-    - name: Deploy to Google Cloud Storage
+    - name: Deploy to Google Cloud Storage  # Syncs the files to the specified GCS bucket
       run: gsutil rsync -r ${{ github.workspace }} gs://static_website_storage
-      # Replace './public' with the path to your build directory if different
-      # Replace 'YOUR_BUCKET_NAME_HERE' with your actual Cloud Storage bucket name
+      # Ensure 'gs://static_website_storage' matches your GCS bucket name
