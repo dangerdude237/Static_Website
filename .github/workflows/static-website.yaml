@@ -25,7 +25,7 @@ jobs:
     #   run: hugo --minify
     #   # Make sure to adjust the 'run' command according to your build process
 
-    - name: Authenticate to Google Cloud  # Authenticates to Google Cloud with Workload Identity Federation
+    - name: Authenticate to Google Cloud  #Authenticates to Google Cloud with Workload Identity Federation
       uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github/providers/static-website-pool'
