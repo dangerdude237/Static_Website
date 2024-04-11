@@ -9,7 +9,7 @@ permissions:
   contents: read 
   id-token: write  
 
-jobs:
+jobs: # A job is a set of steps that execute on the same runner
   deploy:
     runs-on: ubuntu-latest 
     steps:
