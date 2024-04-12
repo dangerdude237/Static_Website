@@ -19,9 +19,13 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github/providers/static-website-pool'
+        workload_identity_provider: 'projects/359910979371/locations/global/workloadIdentityPools/github-1/providers/my-repo'
         service_account: 'static-website-service-account@cloudcomputing-411615.iam.gserviceaccount.com'
 
     - name: Deploy to Google Cloud Storage  
-      run: gsutil rsync -r ${{ github.workspace }} gs://static_website_storage
-
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      with: 
+        path: 'public'
+        destination: 'gs://static_website_storage'
+        parent: false
+      
