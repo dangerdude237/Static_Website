@@ -26,6 +26,6 @@ jobs:
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with: 
         path: .
-        destination: 'gs://static_website_storage'
+        destination: 'static_website_storage'
         parent: false
       
