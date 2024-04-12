@@ -25,7 +25,7 @@ jobs:
     - name: Deploy to Google Cloud Storage  
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with: 
-        path: 'public'
+        path: '**/*'
         destination: 'gs://static_website_storage'
         parent: false
       
